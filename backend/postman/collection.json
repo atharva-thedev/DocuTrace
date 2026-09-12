@@ -1,0 +1,181 @@
+{
+  "info": {
+    "_postman_id": "docutrace-backend-collection-v1",
+    "name": "DocuTrace API v1",
+    "description": "Comprehensive Postman API collection for the DocuTrace AI-Powered Business Document Intelligence Platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"auditor@docutrace.io\",\n  \"password\": \"SecurePass123!\",\n  \"full_name\": \"Lead Auditor\",\n  \"role\": \"auditor\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.access_token) {",
+                  "    pm.environment.set('accessToken', jsonData.data.access_token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"auditor@docutrace.io\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current User Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/me", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "me"] }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/refresh", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "refresh"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/api/v1/auth/logout", "host": ["{{baseUrl}}"], "path": ["api", "v1", "auth", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Documents",
+      "item": [
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "" },
+                { "key": "document_type", "value": "invoice", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/v1/documents/upload", "host": ["{{baseUrl}}"], "path": ["api", "v1", "documents", "upload"] }
+          }
+        },
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/documents/?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["api", "v1", "documents", ""], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }] }
+          }
+        },
+        {
+          "name": "Get Document Details",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/documents/{{docId}}", "host": ["{{baseUrl}}"], "path": ["api", "v1", "documents", "{{docId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Intelligence & Extractions",
+      "item": [
+        {
+          "name": "Get Document Fields",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/extractions/documents/{{docId}}/fields", "host": ["{{baseUrl}}"], "path": ["api", "v1", "extractions", "documents", "{{docId}}", "fields"] }
+          }
+        },
+        {
+          "name": "Get Document Anomalies",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/anomalies/documents/{{docId}}/anomalies", "host": ["{{baseUrl}}"], "path": ["api", "v1", "anomalies", "documents", "{{docId}}", "anomalies"] }
+          }
+        },
+        {
+          "name": "Get Document Obligations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/obligations/documents/{{docId}}/obligations", "host": ["{{baseUrl}}"], "path": ["api", "v1", "obligations", "documents", "{{docId}}", "obligations"] }
+          }
+        },
+        {
+          "name": "Get Explainable Risk Score",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/risk-scores/documents/{{docId}}/risk", "host": ["{{baseUrl}}"], "path": ["api", "v1", "risk-scores", "documents", "{{docId}}", "risk"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Evidence Q&A (RAG)",
+      "item": [
+        {
+          "name": "Ask Document Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What is the total billed amount and vendor name?\",\n  \"document_id\": \"{{docId}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/v1/qa/query", "host": ["{{baseUrl}}"], "path": ["api", "v1", "qa", "query"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Dashboard Analytics",
+      "item": [
+        {
+          "name": "Get Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/dashboard/summary", "host": ["{{baseUrl}}"], "path": ["api", "v1", "dashboard", "summary"] }
+          }
+        }
+      ]
+    }
+  ]
+}
