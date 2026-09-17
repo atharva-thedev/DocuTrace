@@ -12,6 +12,7 @@ from app.api.v1.endpoints import (
     tasks,
     qa,
     dashboard,
+    ml,
 )
 
 api_router = APIRouter()
@@ -27,3 +28,4 @@ api_router.include_router(risk_scores.router, prefix="/risk-scores", tags=["Expl
 api_router.include_router(tasks.router, prefix="/tasks", tags=["Action & Task Engine"])
 api_router.include_router(qa.router, prefix="/qa", tags=["Evidence-Grounded Q&A (RAG)"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["Executive Dashboard Analytics"])
+api_router.include_router(ml.router, prefix="/ml", tags=["Machine Learning Inference & MongoDB Telemetry"])

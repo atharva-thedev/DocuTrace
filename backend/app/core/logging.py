@@ -20,6 +20,13 @@ def mask_sensitive_data(message: str) -> str:
 
 def setup_logging():
     """Configure structured logging."""
+    if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
     logger.remove()
     logger.add(
         sys.stdout,

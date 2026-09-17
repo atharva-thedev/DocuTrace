@@ -1,0 +1,72 @@
+{
+  "dataset": {
+    "source": "ml/doctrace_50k_mock_data.csv",
+    "total_records": 50000,
+    "training_samples": 40000,
+    "testing_samples": 10000,
+    "document_types": [
+      "Legal Contract",
+      "Financial Statement",
+      "Employment Verification",
+      "Medical Record",
+      "Tax Return",
+      "Identity Credential",
+      "Real Estate Deed",
+      "Compliance Certificate",
+      "Academic Transcript",
+      "Patent Filing"
+    ],
+    "status_categories": [
+      "Issued",
+      "Pending",
+      "Verified",
+      "Revoked",
+      "Expired"
+    ]
+  },
+  "document_type_classifier": {
+    "model_type": "LogisticRegression with TF-IDF Vectorizer (10 Classes)",
+    "train_accuracy": 1.0,
+    "test_accuracy": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "roc_auc_ovr": 1.0,
+    "classes": [
+      "Academic Transcript",
+      "Compliance Certificate",
+      "Employment Verification",
+      "Financial Statement",
+      "Identity Credential",
+      "Legal Contract",
+      "Medical Record",
+      "Patent Filing",
+      "Real Estate Deed",
+      "Tax Return"
+    ]
+  },
+  "status_risk_predictor": {
+    "model_type": "RandomForestClassifier with Categorical & Duration Preprocessing (5 Classes)",
+    "train_accuracy": 0.7272,
+    "test_accuracy": 0.5662,
+    "weighted_precision": 0.6124,
+    "weighted_recall": 0.5662,
+    "macro_f1": 0.6219,
+    "weighted_f1": 0.5721,
+    "classes": [
+      "Expired",
+      "Issued",
+      "Pending",
+      "Revoked",
+      "Verified"
+    ]
+  },
+  "trace_anomaly_detector": {
+    "model_type": "IsolationForest (Contamination 5%)",
+    "contamination_rate": 0.05,
+    "detected_anomalies": 2500,
+    "total_evaluated": 50000
+  },
+  "training_time_seconds": 6.96
+}

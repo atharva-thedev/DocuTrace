@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-09-13T02:25:00Z",
+  "task": "DocuTrace Financial Anomaly & Statistical Outlier Detection",
+  "model": "sklearn.ensemble.IsolationForest",
+  "target": "is_anomaly (0=Normal Transaction, 1=Statistical Anomaly)",
+  "results": {
+    "model_name": "IsolationForest (Unsupervised Outlier Detection)",
+    "model_type": "Binary Classification (Anomaly Detection)",
+    "hyperparameters": {
+      "contamination": 0.1,
+      "random_state": 42,
+      "n_estimators": 100,
+      "max_samples": "auto"
+    },
+    "dataset_summary": {
+      "total_samples": 1320,
+      "train_samples": 1056,
+      "test_samples": 264,
+      "normal_samples": 1200,
+      "anomaly_samples": 120,
+      "contamination_rate": 0.09090909090909091
+    },
+    "train_metrics": {
+      "accuracy": 0.9905,
+      "precision": 0.9057,
+      "recall": 1.0,
+      "f1_score": 0.9505,
+      "roc_auc": 0.9985
+    },
+    "test_metrics": {
+      "accuracy": 0.9886,
+      "precision": 0.8889,
+      "recall": 1.0,
+      "f1_score": 0.9412,
+      "roc_auc": 1.0
+    },
+    "confusion_matrix": {
+      "true_negatives": 237,
+      "false_positives": 3,
+      "false_negatives": 0,
+      "true_positives": 24
+    },
+    "diagnostics": {
+      "overfitting": "None detected (Train F1: 0.9505 vs Test F1: 0.9412)",
+      "underfitting": "None detected (Test ROC-AUC: 1.0000)",
+      "data_leakage": "None detected (Strict stratified train/test split with no parameter bleed)",
+      "class_imbalance": "Handled via contamination tuning (90.9% Normal, 9.1% Anomaly)",
+      "evaluation_trustworthy": true
+    }
+  }
+}

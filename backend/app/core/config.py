@@ -40,6 +40,7 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./docutrace.db"
+    MONGODB_URI: str = ""
 
     # JWT Authentication
     JWT_ACCESS_SECRET: str = "docutrace_super_secure_access_secret_key_minimum_64_characters_long_for_security_compliance"

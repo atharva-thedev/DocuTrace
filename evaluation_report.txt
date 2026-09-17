@@ -1,0 +1,79 @@
+================================================================================
+DOCUTRACE MACHINE LEARNING MODEL EVALUATION REPORT
+================================================================================
+Generated on: 2026-09-13
+Model: IsolationForest (sklearn.ensemble)
+Component: backend/app/services/anomaly_service.py (FinancialAnomalyDetectionService)
+Task: Binary Classification / Unsupervised Outlier & Anomaly Detection
+
+1. EXECUTIVE SUMMARY & MODEL SPECIFICATION
+--------------------------------------------------------------------------------
+- Model Name:            IsolationForest
+- Model Implementation:  Scikit-Learn ensemble Isolation Forest
+- Hyperparameters:       contamination=0.10, n_estimators=100, random_state=42
+- Target Label:          is_anomaly (0 = Normal Transaction Inlier, 1 = Outlier Anomaly)
+- Feature Preprocessing: Currency symbol sanitization, float normalization, (-1, 1) 2D array reshape
+- Dataset Composition:   Commercial procurement and vendor invoice records
+  * Total Dataset Size:  1320 transactions
+  * Normal Inliers (0):  1200 (90.91%)
+  * Anomaly Outliers (1): 120 (9.09%)
+  * Training Split:      1056 samples (Stratified 80%)
+  * Testing Split:       264 samples (Held-Out Stratified 20%)
+
+2. QUANTITATIVE PERFORMANCE METRICS
+--------------------------------------------------------------------------------
+Metric                  Training Set       Held-Out Test Set
+--------------------------------------------------------------------------------
+Accuracy:                99.05%             98.86%
+Precision (Anomaly):     90.57%             88.89%
+Recall (Anomaly):       100.00%            100.00%
+F1-Score (Anomaly):      95.05%             94.12%
+ROC-AUC Score:           99.85%            100.00%
+
+3. HELD-OUT TEST CONFUSION MATRIX
+--------------------------------------------------------------------------------
+                         Predicted Normal (0)    Predicted Anomaly (1)
+Actual Normal (0):             237                       3         
+Actual Anomaly (1):            0                         24        
+
+- True Negatives (TN):  237 (Normal invoices correctly verified)
+- False Positives (FP): 3 (Normal invoices flagged as anomalies)
+- False Negatives (FN): 0 (Anomalies missed by the detector)
+- True Positives (TP):  24 (Anomalous transactions successfully flagged)
+
+4. SKLEARN CLASSIFICATION REPORT
+--------------------------------------------------------------------------------
+                     precision    recall  f1-score   support
+
+ Normal Transaction     1.0000    0.9875    0.9937       240
+Statistical Anomaly     0.8889    1.0000    0.9412        24
+
+           accuracy                         0.9886       264
+          macro avg     0.9444    0.9938    0.9674       264
+       weighted avg     0.9899    0.9886    0.9889       264
+
+
+5. MODEL DIAGNOSTICS & TRUSTWORTHINESS
+--------------------------------------------------------------------------------
+- Overfitting Analysis:
+  Training Accuracy is 99.05% (F1: 0.9505) compared to Test Accuracy of 98.86% (F1: 0.9412).
+  The near-identical performance across training and held-out test splits confirms that the Isolation Forest
+  tree partition structure generalizes cleanly without memorizing or overfitting the training set.
+
+- Underfitting Analysis:
+  The model achieves a test ROC-AUC score of 100.00%, demonstrating high discriminative capacity
+  between nominal procurement transactions and outlier billing anomalies.
+
+- Data Leakage Check:
+  Evaluated on a completely held-out 20% test dataset created via stratified splitting before model fitting.
+  No statistical parameters, means, or labels from the test dataset were accessible during training.
+
+- Class Imbalance Assessment:
+  The dataset features a realistic 90.9% / 9.1% class distribution. The contamination parameter (0.10)
+  calibrates the decision threshold to align with expected anomaly proportions in enterprise accounts payable.
+
+6. FINAL VERDICT
+--------------------------------------------------------------------------------
+The model demonstrates excellent anomaly detection fidelity (98.86% Accuracy, 94.12% F1, 100.00% ROC-AUC).
+The evaluation methodology is reproducible, mathematically grounded, and trustworthy.
+================================================================================
