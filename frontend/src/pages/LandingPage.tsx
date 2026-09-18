@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { BrandLogo } from '../components/ui/BrandLogo';
 import {
   FileText,
   ShieldCheck,
@@ -254,18 +255,8 @@ export const LandingPage: React.FC = () => {
       <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/85 dark:bg-[#0B0F17]/85 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200">
-              <span className="font-mono text-xs font-bold tracking-tighter">{`{...}`}</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white font-display leading-none group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                DocuTrace
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mt-0.5 font-mono">
-                Enterprise Intelligence
-              </span>
-            </div>
+          <Link to="/" className="flex items-center group hover:opacity-90 transition-opacity">
+            <BrandLogo size="md" />
           </Link>
 
           {/* Navigation Links */}
@@ -1323,10 +1314,7 @@ export const LandingPage: React.FC = () => {
       <footer className="py-12 bg-white dark:bg-[#0B0F17] text-slate-500 dark:text-slate-400 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-mono text-[10px] font-bold shadow-xs">
-              {`{...}`}
-            </div>
-            <span className="font-bold text-slate-900 dark:text-white font-display text-sm">DocuTrace</span>
+            <BrandLogo size="sm" />
             <span>• Verified Document Intelligence Platform</span>
           </div>
 

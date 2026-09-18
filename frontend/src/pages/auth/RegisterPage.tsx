@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
 import { Mail, Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { UserRole } from '../../types';
+import { BrandLogo } from '../../components/ui/BrandLogo';
 
 export const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -45,13 +46,10 @@ export const RegisterPage: React.FC = () => {
         <div className="w-full max-w-[400px] flex flex-col justify-center">
           
           {/* Brand Header */}
-          <div className="flex items-center gap-2 mb-5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-xs">
-              <span className="font-mono text-xs font-bold tracking-tighter">{`{...}`}</span>
-            </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-              DocuTrace
-            </span>
+          <div className="mb-5">
+            <Link to="/" className="inline-block hover:opacity-90 transition-opacity">
+              <BrandLogo size="lg" />
+            </Link>
           </div>
 
           {/* Header */}

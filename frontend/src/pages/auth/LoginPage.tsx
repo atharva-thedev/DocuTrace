@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../auth/useAuth';
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { BrandLogo } from '../../components/ui/BrandLogo';
 
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('auditor@docutrace.io');
@@ -61,13 +62,10 @@ export const LoginPage: React.FC = () => {
         <div className="w-full max-w-[400px] flex flex-col justify-center">
           
           {/* Brand Header */}
-          <div className="flex items-center gap-2 mb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-xs">
-              <span className="font-mono text-xs font-bold tracking-tighter">{`{...}`}</span>
-            </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-              DocuTrace
-            </span>
+          <div className="mb-6">
+            <Link to="/" className="inline-block hover:opacity-90 transition-opacity">
+              <BrandLogo size="lg" />
+            </Link>
           </div>
 
           {/* Heading */}

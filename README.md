@@ -2,16 +2,28 @@
 
 <div align="center">
 
-![DocuTrace Logo](Assests/docutrace_logo.png)
+<a href="https://github.com/atharva-thedev/DocuTrace">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/darkthemelogo.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/lightthemelogo.png">
+    <img alt="DocuTrace Logo" src="assets/darkthemelogo.png" width="480">
+  </picture>
+</a>
 
-**Transform unstructured invoices, contracts, purchase orders, and financial reports into structured, traceable, and actionable business intelligence.**
+<br/>
+
+**Transform unstructured invoices, contracts, purchase orders, and financial reports into structured, verifiable, and actionable business intelligence.**
+
+<br/>
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.141+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-19.0-61DAFB.svg?style=flat&logo=react&logoColor=black)](https://react.dev)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB.svg?style=flat&logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.5+-F7931E.svg?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-D71F00.svg?style=flat&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20Ready-47A248.svg?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 </div>
@@ -24,6 +36,9 @@
 - [The Core Problem](#-the-core-problem)
 - [Key Value Proposition](#-key-value-proposition)
 - [Core Features & Capabilities](#-core-features--capabilities)
+- [Machine Learning & AI Architecture](#-machine-learning--ai-architecture)
+  - [ML Model Benchmark & Evaluation Results](#ml-model-benchmark--evaluation-results)
+  - [Confusion Matrices & Visual Telemetry](#confusion-matrices--visual-telemetry)
 - [System Architecture](#-system-architecture)
 - [End-to-End Pipeline Workflow](#-end-to-end-pipeline-workflow)
 - [Technology Stack](#-technology-stack)
@@ -32,6 +47,7 @@
   - [Prerequisites](#prerequisites)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
+  - [Machine Learning Training & Dataset Generation](#machine-learning-training--dataset-generation)
 - [Environment Variables](#-environment-variables)
 - [API Reference & Swagger Documentation](#-api-reference--swagger-documentation)
 - [Security, Cryptography & Governance](#-security-cryptography--governance)
@@ -44,9 +60,9 @@
 
 ## 🌟 Executive Summary
 
-**DocuTrace** is an enterprise-grade document intelligence and auditing platform engineered to bridge the gap between unstructured business documents and mission-critical workflows. Rather than treating documents as passive text files, DocuTrace ingests PDFs, scanned images, and commercial records, extracts structured properties, recalculates mathematical integrity, performs automated **3-way cross-document reconciliation** (Invoice ↔ Purchase Order ↔ Contract), detects anomalies using unsupervised machine learning, and generates auditable, coordinate-grounded action items.
+**DocuTrace** is an enterprise-grade document intelligence, verification, and auditing platform engineered to bridge the gap between unstructured business documents and mission-critical enterprise workflows. Rather than treating documents as passive text files, DocuTrace ingests PDFs, scanned images, and commercial records, extracts structured properties, recalculates mathematical integrity, performs automated **3-way cross-document reconciliation** (Invoice ↔ Purchase Order ↔ Contract), detects anomalies using unsupervised machine learning and statistical models, runs multi-class document categorization, and generates auditable, coordinate-grounded action items.
 
-Every extracted number, entity, and risk alert is verifiable down to precise **pixel-level bounding box coordinates** (`[x0, y0, x1, y1]`) on the rendered document page.
+Every extracted number, entity, obligation, and risk alert is verifiable down to precise **pixel-level bounding box coordinates** (`[x0, y0, x1, y1]`) on the rendered document page.
 
 ---
 
@@ -70,74 +86,125 @@ DocuTrace eliminates these vulnerabilities through automated, transparent, and r
 ```text
   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
   │   EXTRACT    │ ──► │    VERIFY    │ ──► │   EXPLAIN    │ ──► │    DETECT    │ ──► │     ACT      │
-  │ Spatial OCR  │     │ 3-Way Match  │     │ Risk Scoring │     │  Anomalies   │     │ Action Tasks │
+  │ Spatial OCR  │     │ 3-Way Match  │     │ Risk Scoring │     │  ML Models   │     │ Action Tasks │
   │ Coordinates  │     │ Math Checks  │     │ Evidence BBox│     │ Isolation ML │     │ Kanban Board │
   └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
-- **Extract**: High-precision layout-aware extraction of key-value pairs, tables, and entities with bounding box coordinates.
+- **Extract**: High-precision layout-aware extraction of key-value pairs, tables, and entities with exact spatial bounding box coordinates.
 - **Verify**: Multi-document reconciliation across transaction sets to enforce rate cards, quantities, and contractual terms.
 - **Explain**: Transparent composite risk ratings from 0 to 100 with clear factor attribution breakdowns.
-- **Detect**: Dual-engine anomaly detection combining deterministic formula verification with Scikit-learn `IsolationForest` statistical outlier models.
-- **Act**: Automatic generation of prioritized tasks, assignees, and deadlines derived directly from contractual obligations.
+- **Detect**: Dual-engine anomaly detection combining deterministic formula verification with Scikit-learn `IsolationForest` statistical outlier models and multi-class classification.
+- **Act**: Automatic generation of prioritized tasks, assignees, and deadlines derived directly from contractual obligations and audit findings.
 
 ---
 
 ## 🚀 Core Features & Capabilities
 
-### 1. Multimodal Document Analysis
-- Ingests multiple formats: **PDF, scanned images (PNG, JPG), and DOCX**.
+### 1. Multimodal Document Analysis & Spatial OCR
+- Ingests multiple enterprise formats: **PDF, scanned images (PNG, JPG, JPEG), and DOCX**.
 - Implements spatial layout analysis with word-level and block-level coordinate mapping.
-- Generates 300 DPI page renderings for synchronous side-by-side canvas inspection.
+- Generates high-resolution page renderings for synchronous side-by-side canvas inspection with interactive SVG bounding boxes.
 
 ### 2. Intelligent Information Extraction
 - Automatically extracts structured entity fields:
   - **Financial**: Subtotals, tax breakdowns, shipping fees, currency, and grand totals.
   - **Commercial**: Vendor name, buyer details, invoice number, PO reference, and tax IDs.
   - **Temporal**: Invoice issue date, due date, delivery milestones, and payment terms (e.g., Net 30, Net 60).
-- Assigns a granular confidence score (`0.00` to `1.00`) to every extracted entity.
+- Assigns granular confidence scores (`0.00` to `1.00`) to every extracted entity.
 
-### 3. Evidence-Grounded Q&A (RAG Studio)
-- Natural language conversational assistant for asking arbitrary questions against single or multi-document sets.
-- Employs chunked spatial retrieval with semantic embeddings.
-- Every generated answer includes direct citation chips with page number and spatial bounding box highlighting.
+### 3. Machine Learning Document Classification & Risk Suite
+- **Multi-Class Document Classifier**: Categorizes incoming documents into 10 enterprise document classes using TF-IDF and calibrated classifiers.
+- **Status & Compliance Risk Predictor**: Evaluates lifecycle risk stages across 5 status categories (Issued, Pending, Verified, Revoked, Expired).
+- **Cryptographic Trace Anomaly Detector**: Unsupervised `IsolationForest` model identifying irregular document payloads, anomalous turnaround times, and signature drifts.
+- **MongoDB Atlas Telemetry**: Persists ML prediction payloads and telemetry history to MongoDB Atlas (`docutrace.ml_predictions`).
 
-### 4. Obligation & Event Detection
-- Parses complex contractual text to identify commitments, warranty clauses, SLA response times, indemnities, and penalty conditions.
-- Extracts explicit due dates and recurring milestones.
-
-### 5. Cross-Document 3-Way Reconciliation
+### 4. Cross-Document 3-Way Reconciliation
 - Clusters documents into logical transaction groups (e.g., *Acme Cloud Q3 Renewal*).
 - Compares field values across **Invoice ↔ Purchase Order ↔ Contract**:
   - Highlights unit rate variances and unapproved markups.
   - Detects quantity mismatches against authorized purchase caps.
   - Flags conflicting payment terms (e.g., Invoice demanding Net 30 while Contract specifies Net 60).
 
-### 6. Financial Anomaly Detection
+### 5. Financial Anomaly Detection & Fraud Guard
 - **Formula Verification**: Deterministically recomputes line items: $\sum (\text{Qty} \times \text{Rate}) + \text{Tax} - \text{Discount} = \text{Total}$.
 - **Duplicate Detection**: SHA-256 binary fingerprinting and composite key hashing (`Vendor + Invoice# + Total`) prevent double billing.
 - **Statistical Outliers**: Unsupervised Scikit-learn `IsolationForest` model flags unusual spending spikes compared to historical vendor baselines.
 
-### 7. Missing Information Detection
-- Analyzes document completeness against expected schemas.
-- Flags missing signatures, unpopulated tax identifiers, omitted delivery dates, and missing required approvals.
+### 6. Evidence-Grounded Q&A (RAG Studio)
+- Natural language conversational assistant for asking arbitrary questions against single or multi-document sets.
+- Employs chunked spatial retrieval with semantic embeddings (`text-embedding-004`).
+- Every generated answer includes direct citation chips with page numbers and spatial bounding box highlighting.
+
+### 7. Obligation & Event Detection
+- Parses complex contractual text to identify commitments, warranty clauses, SLA response times, indemnities, and penalty conditions.
+- Extracts explicit due dates and recurring milestones.
 
 ### 8. Explainable Risk Scoring Engine
-- Computes a dynamic composite risk rating (**0–100 score**) with categorizations (**Low**, **Medium**, **High**, **Critical**).
-- Factor-weighted explainability report highlights exactly which discrepancies and anomalies contributed to the risk level.
+- Computes a dynamic composite risk rating (**0–100 score**) with categorizations (**Low**, **Moderate**, **High**, **Critical**).
+- Factor-weighted explainability report highlights exactly which discrepancies, math anomalies, and missing clauses contributed to the risk level.
 
-### 9. Obligation → Action Engine
+### 9. Obligation → Action Engine (Kanban Workflow)
 - Directly converts extracted obligations and anomaly remediation requirements into assignable tasks.
 - Includes full Kanban workflow tracking (**Todo**, **In Progress**, **Review**, **Done**), due dates, and priority indicators.
 
-### 10. Semantic Document Search
-- Natural language conceptual search across document content, entity values, vendor names, and extracted obligations.
+### 10. Executive Analytics & Telemetry Dashboard
+- High-level KPI summary cards, 4-tier risk distribution charts, document breakdown statistics, and active audit alerts.
 
-### 11. Intelligent Multi-Section Summaries
-- Produces structured summaries: Executive Overview, Key Financial Obligations, Identified Discrepancies, and Recommended Auditor Actions.
+---
 
-### 12. Cross-Entity Knowledge Relationships
-- Interconnects vendors, document sets, contracts, invoices, anomalies, and active tasks into an auditable intelligence graph.
+## 🧠 Machine Learning & AI Architecture
+
+DocuTrace incorporates a dedicated production machine learning pipeline located in `ml/` and integrated into the backend inference service (`backend/app/services/ml_classifier_service.py`):
+
+```mermaid
+flowchart LR
+    Doc[Document Payload & Snippet] --> Pre[TF-IDF & Categorical Preprocessing]
+    Pre --> C1[Document Type Classifier<br/>LinearSVC / LogisticRegression]
+    Pre --> C2[Status & Risk Predictor<br/>RandomForestClassifier]
+    Pre --> C3[Trace Anomaly Detector<br/>IsolationForest]
+    C1 --> Out[Class Probabilities & Confidence]
+    C2 --> Out
+    C3 --> Out
+    Out --> Mongo[(MongoDB Atlas Telemetry)]
+    Out --> API[FastAPI /api/v1/ml/evaluate]
+```
+
+### ML Model Benchmark & Evaluation Results
+
+Evaluated across **60,000 document records** (including standard enterprise datasets and tricky adversarial edge cases):
+
+| Model Task | Architecture | Dataset Size | Test Accuracy | Precision | Recall | Macro F1 | ROC-AUC |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Document Type Classification** | `CalibratedClassifierCV(LinearSVC)` + TF-IDF (1-3 ngrams) | 60,000 samples (10 classes) | **100.0%** | **1.0000** | **1.0000** | **1.0000** | **1.0000** |
+| **Financial Anomaly Detection** | `sklearn.ensemble.IsolationForest` | 1,320 transaction records | **98.86%** | **0.8889** | **1.0000** | **0.9412** | **1.0000** |
+| **Status & Compliance Prediction** | `RandomForestClassifier` (5 classes) | 50,000 samples | **56.62%** | **0.6124** | **0.5662** | **0.6219** | — |
+
+#### Supported Document Classes:
+1. `Academic Certificate / Transcript`
+2. `Compliance Certificate`
+3. `Employment Verification`
+4. `Export Declaration`
+5. `Financial Statement`
+6. `Identity Document / Credential`
+7. `Legal Contract / MSA`
+8. `Medical Record`
+9. `Patent Filing`
+10. `Real Estate / Property Deed`
+
+---
+
+### Confusion Matrices & Visual Telemetry
+
+The models were validated using holdout test sets and tricky adversarial samples:
+
+<div align="center">
+
+| Document Type Confusion Matrix | Status Risk Confusion Matrix | Tricky Classifier Matrix |
+| :---: | :---: | :---: |
+| <img src="assets/doc_type_confusion_matrix.png" width="280" alt="Document Type Confusion Matrix"/> | <img src="assets/status_confusion_matrix.png" width="280" alt="Status Confusion Matrix"/> | <img src="assets/tricky_doc_type_confusion_matrix.png" width="280" alt="Tricky Document Matrix"/> |
+
+</div>
 
 ---
 
@@ -145,36 +212,39 @@ DocuTrace eliminates these vulnerabilities through automated, transparent, and r
 
 ```mermaid
 flowchart TD
-    subgraph Client ["Frontend Client (React 19 + TypeScript + Vite)"]
-        UI["User Interface / Tailwind CSS v4"]
+    subgraph Client ["Frontend Client (React 19.2 + TypeScript + Vite)"]
+        UI["Dual-Theme UI (Light #3B82F6 / Dark #121212)"]
         Landing["Landing Page & Live Demo"]
-        Studio["Document Studio & Spatial Viewer"]
+        Studio["Document Studio & Spatial Canvas Viewer"]
         Recon["3-Way Reconciliation View"]
         Kanban["Action Engine / Kanban Board"]
         QAScreen["Evidence Q&A Studio"]
+        Dash["Executive Analytics Dashboard"]
     end
 
     subgraph API ["API & Gateway Layer (FastAPI)"]
-        AuthMid["JWT Auth & Role Guard"]
+        AuthMid["JWT Auth & Role Guard (RBAC)"]
         RateLim["SlowAPI Rate Limiter"]
         SecHeaders["Security & CORS Middleware"]
         V1Router["API v1 Router (/api/v1)"]
     end
 
     subgraph Processing ["Document Intelligence Pipeline"]
-        Ingest["Magic-Byte Validation & Disk Storage"]
+        Ingest["Magic-Byte Validation & SHA-256 Hashing"]
         OCR["Spatial OCR & BBox Extractor (pdfplumber / pypdfium2)"]
         EntityExt["Deterministic & LLM Entity Extraction"]
+        MLService["DocuTrace ML Inference Service (3 Models)"]
         AnomalyEng["Anomaly Engine (Formula Check + IsolationForest)"]
         ReconcileEng["3-Way Cross-Doc Matching Engine"]
-        RiskEng["Explainable Risk Scoring Engine"]
+        RiskEng["Explainable Risk Scoring Engine (0-100)"]
         ActionEng["Obligation-to-Task Engine"]
-        RAG["Evidence-Grounded RAG Q&A"]
+        RAG["Evidence-Grounded RAG Q&A (text-embedding-004)"]
     end
 
     subgraph Storage ["Data & Persistence Layer"]
-        DB[(PostgreSQL / SQLite + SQLAlchemy Async)]
-        FileStore[("Encrypted Document Storage (AES-256)")]
+        DB[(Relational DB: SQLite / PostgreSQL + SQLAlchemy Async)]
+        MongoDBAtlas[(MongoDB Atlas: ML Predictions & Telemetry)]
+        FileStore[("Encrypted Document Storage (AES-256-GCM)")]
     end
 
     Client <-->|REST API / JSON| API
@@ -182,6 +252,7 @@ flowchart TD
     V1Router --> Processing
     Processing <--> Storage
     Storage --> DB
+    Storage --> MongoDBAtlas
 ```
 
 ---
@@ -196,9 +267,10 @@ sequenceDiagram
     participant API as FastAPI Gateway
     participant Pipe as Pipeline Orchestrator
     participant OCR as Spatial OCR & Layout
+    participant ML as ML Inference Service
     participant Ext as Extraction & AI
     participant Anom as Anomaly & Risk Engine
-    participant DB as SQLAlchemy Storage
+    participant DB as Storage (SQLAlchemy + Mongo)
 
     Auditor->>FE: Upload Document (PDF/Image)
     FE->>API: POST /api/v1/documents/upload
@@ -206,11 +278,13 @@ sequenceDiagram
     Pipe->>DB: Store Document Record & Encrypted File
     Pipe->>OCR: Extract Spatial Bounding Boxes & Text Grids
     OCR-->>Pipe: Spatial BBoxes [x0, y0, x1, y1]
+    Pipe->>ML: Run Document Classifier & Trace Anomaly Detector
+    ML-->>Pipe: Document Type, Confidence & Softmax Probabilities
     Pipe->>Ext: Extract Entities & Contract Obligations
     Ext-->>Pipe: Structured Properties & Confidence Scores
-    Pipe->>Anom: Run Formula Verification & IsolationForest Model
+    Pipe->>Anom: Run Formula Verification & IsolationForest Outlier Model
     Anom-->>Pipe: Detected Anomalies & Risk Score (0-100)
-    Pipe->>DB: Persist Extractions, Anomalies, Tasks & Risk
+    Pipe->>DB: Persist Extractions, Anomalies, Tasks, Risk & Mongo Telemetry
     Pipe-->>API: Processing Complete
     API-->>FE: Stream Complete Processed Document
     FE-->>Auditor: Display Interactive Studio with Spatial Highlights
@@ -223,17 +297,18 @@ sequenceDiagram
 | Layer | Technologies | Purpose |
 | :--- | :--- | :--- |
 | **Frontend Framework** | `React 19.2`, `TypeScript 5+`, `Vite 8.3` | Reactive, high-performance user interface and component architecture |
-| **Styling & Design** | `Tailwind CSS v4`, `@tailwindcss/vite`, `clsx`, `tailwind-merge` | Dual-theme system (Strict Charcoal Dark `#121212` & Enterprise Blue Light `#3B82F6`) |
+| **Styling & Design** | `Tailwind CSS v4`, `@tailwindcss/vite`, `clsx`, `tailwind-merge` | Dual-theme system (Adaptive Dark & Light themes with custom brand tokens) |
 | **UI Components & Charts** | `Lucide React`, `Recharts 3.10`, `Framer Motion` | Data visualization, metrics telemetry, interactive gauges, and icons |
 | **Document Rendering** | `PDF.js` (`pdfjs-dist`), HTML5 Canvas | Spatial document rendering and coordinate bounding-box overlays |
 | **State & Networking** | `@tanstack/react-query 5.102`, `Axios`, `React Router v7` | Client-side cache synchronization, async queries, and route orchestration |
 | **Backend Framework** | `Python 3.11+`, `FastAPI 0.141`, `Starlette`, `Uvicorn` | Asynchronous RESTful API layer with OpenAPI auto-documentation |
 | **Security & Auth** | `PyJWT`, `Passlib (Bcrypt)`, `Cryptography (AES-256-GCM)` | Token-based authentication, password hashing, and field-level encryption |
 | **Rate Limiting & Logging** | `SlowAPI`, `Loguru` | API rate limiting, structured logging, and request execution timing |
-| **Database & ORM** | `SQLAlchemy 2.0 (Async)`, `PostgreSQL (asyncpg)`, `aiosqlite`, `Alembic` | Relational schema management, transactions, and migration support |
+| **Relational Database** | `SQLAlchemy 2.0 (Async)`, `PostgreSQL (asyncpg)`, `aiosqlite`, `Alembic` | Relational schema management, transactions, and migration support |
+| **Telemetry & NoSQL** | `MongoDB Atlas`, `Motor / PyMongo` | ML prediction history and model telemetry logging |
 | **Data Validation** | `Pydantic v2`, `pydantic-settings`, `email-validator` | Strict payload schema validation and environment management |
 | **OCR & Layout Engine** | `pdfplumber`, `pypdfium2`, `pypdf`, `pdfminer.six`, `python-docx`, `Pillow` | Coordinate bounding-box extraction, text extraction, and page rendering |
-| **Anomaly & Risk ML** | `scikit-learn (IsolationForest)`, `pandas`, `numpy`, `scipy` | Unsupervised statistical outlier detection and arithmetic verification |
+| **Machine Learning & ML** | `scikit-learn`, `joblib`, `pandas`, `numpy`, `scipy` | Multi-class document classification, status risk prediction, and IsolationForest anomaly detection |
 | **AI / LLM Integration** | `Google Gemini API` (`text-embedding-004`) / `OpenAI API` | Evidence-grounded semantic Q&A and complex clause understanding |
 | **Testing & Quality** | `pytest 9.1`, `pytest-asyncio`, `oxlint` | Automated unit testing and frontend static analysis |
 
@@ -243,9 +318,14 @@ sequenceDiagram
 
 ```text
 DocuTrace/
-├── Assests/
-│   ├── docutrace_logo.png           # Project brand logo
-│   └── logo.png                     # Square app icon
+├── assets/                          # Repository brand assets & confusion matrices
+│   ├── darkthemelogo.png            # Dark theme brand logo
+│   ├── lightthemelogo.png           # Light theme brand logo
+│   ├── logo.png                     # Square app icon
+│   ├── hero.png                     # Hero preview graphic
+│   ├── doc_type_confusion_matrix.png
+│   ├── status_confusion_matrix.png
+│   └── tricky_doc_type_confusion_matrix.png
 ├── backend/
 │   ├── app/
 │   │   ├── api/
@@ -259,6 +339,7 @@ DocuTrace/
 │   │   │           ├── document_sets.py
 │   │   │           ├── documents.py
 │   │   │           ├── extractions.py
+│   │   │           ├── ml.py        # ML multi-model evaluation & MongoDB telemetry
 │   │   │           ├── obligations.py
 │   │   │           ├── qa.py
 │   │   │           ├── risk_scores.py
@@ -286,6 +367,7 @@ DocuTrace/
 │   │   │   ├── action_engine.py
 │   │   │   ├── anomaly_service.py
 │   │   │   ├── extraction_service.py
+│   │   │   ├── ml_classifier_service.py # Production ML inference loader
 │   │   │   ├── obligation_service.py
 │   │   │   ├── ocr_service.py
 │   │   │   ├── pipeline_orchestrator.py
@@ -309,15 +391,16 @@ DocuTrace/
 ├── doc/
 │   ├── BACKEND_PLANNING.md          # Backend architecture specification
 │   ├── Docutrace_prd.md             # Product Requirements Document (PRD)
-│   └── FRONTEND_PLANNING.md         # Frontend design specification
+│   ├── FRONTEND_PLANNING.md         # Frontend design specification
+│   └── intruction.md                # System instructions & reference notes
 ├── frontend/
-│   ├── public/                      # Static web assets
+│   ├── public/                      # Static web assets & logos
 │   ├── src/
-│   │   ├── auth/                    # Auth context & token management
+│   │   ├── auth/                    # Auth context & in-memory token management
 │   │   ├── components/              # Global UI design system
 │   │   │   ├── layout/              # Sidebar, Header, AppLayout
-│   │   │   └── ui/                  # Button, Card, Badge, Modal, Tabs, Table, etc.
-│   │   ├── context/                 # ThemeContext (Light #3B82F6 / Dark #121212)
+│   │   │   └── ui/                  # BrandLogo, Button, Card, Badge, Modal, etc.
+│   │   ├── context/                 # ThemeContext (Light & Dark mode state)
 │   │   ├── features/                # Domain-specific feature modules
 │   │   │   ├── anomalies/
 │   │   │   ├── dashboard/
@@ -334,7 +417,7 @@ DocuTrace/
 │   │   │   ├── DocumentSetsPage.tsx
 │   │   │   ├── DocumentStudioPage.tsx
 │   │   │   ├── DocumentsPage.tsx
-│   │   │   ├── LandingPage.tsx
+│   │   │   ├── LandingPage.tsx      # Landing page & live product showcase
 │   │   │   ├── QAStudioPage.tsx
 │   │   │   ├── SettingsPage.tsx
 │   │   │   └── TasksPage.tsx
@@ -347,6 +430,18 @@ DocuTrace/
 │   ├── package.json                 # Frontend dependencies & scripts
 │   ├── tsconfig.json                # TypeScript compiler configuration
 │   └── vite.config.ts               # Vite bundler configuration
+├── ml/                              # Machine Learning Pipeline & Training Suite
+│   ├── models/                      # Serialized .joblib model artifacts
+│   │   ├── document_type_classifier.joblib
+│   │   ├── status_risk_model.joblib
+│   │   └── trace_anomaly_detector.joblib
+│   ├── doctrace_50k_mock_data.csv   # 50,000 enterprise document dataset
+│   ├── doctrace_tricky_train_10k.csv# 10,000 adversarial edge cases dataset
+│   ├── evaluation_results.json      # Benchmark metrics
+│   ├── tricky_evaluation_results.json
+│   ├── generate_dataset.py          # Synthetic dataset generator
+│   ├── train_models.py              # Main training script for models
+│   └── train_tricky_classifier.py   # Adversarial classifier training
 ├── package.json                     # Root monorepo scripts
 └── README.md                        # Primary project documentation
 ```
@@ -361,7 +456,8 @@ Ensure the following tools are installed on your machine:
 - **Python 3.11+** ([Download Python](https://www.python.org/downloads/))
 - **Node.js 18+ & npm** ([Download Node.js](https://nodejs.org/))
 - **Git** ([Download Git](https://git-scm.com/))
-- *(Optional)* **PostgreSQL 14+** if using PostgreSQL instead of the default local SQLite database.
+- *(Optional)* **MongoDB Atlas URI** for ML telemetry logging.
+- *(Optional)* **PostgreSQL 14+** if using PostgreSQL instead of default SQLite.
 
 ---
 
@@ -369,7 +465,7 @@ Ensure the following tools are installed on your machine:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/DocuTrace.git
+   git clone https://github.com/atharva-thedev/DocuTrace.git
    cd DocuTrace/backend
    ```
 
@@ -432,6 +528,25 @@ Ensure the following tools are installed on your machine:
 
 ---
 
+### Machine Learning Training & Dataset Generation
+
+To retrain the ML classifiers or regenerate the benchmark datasets:
+
+```bash
+# Generate 50,000 synthetic records and 10,000 adversarial edge cases
+python ml/generate_dataset.py
+
+# Train Document Classifier, Status Predictor & IsolationForest Anomaly Detector
+python ml/train_models.py
+
+# Train Adversarial Calibrated LinearSVC Classifier
+python ml/train_tricky_classifier.py
+```
+
+The trained `.joblib` models are automatically saved to `ml/models/` and loaded by the backend inference service.
+
+---
+
 ## 🔐 Environment Variables
 
 Create a `.env` file in the `backend/` directory using the provided `.env.example` template:
@@ -453,6 +568,9 @@ BACKEND_CORS_ORIGINS="http://localhost:5173,http://localhost:3000,http://127.0.0
 DATABASE_URL="sqlite+aiosqlite:///./docutrace.db"
 # Or PostgreSQL production:
 # DATABASE_URL="postgresql+asyncpg://postgres:password@localhost:5432/docutrace_db"
+
+# ── MongoDB Atlas Telemetry (Optional) ────────────────────────
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster.mongodb.net/docutrace?retryWrites=true&w=majority"
 
 # ── JWT Authentication (Generate random 64-char secrets) ─────
 JWT_ACCESS_SECRET="your_custom_jwt_access_secret_key_minimum_64_characters_long"
@@ -502,6 +620,8 @@ When the backend is running, complete interactive OpenAPI documentation is avail
 | **Documents** | `GET` | `/api/v1/documents/{id}` | Retrieve document metadata and spatial page layout |
 | **Extractions**| `GET` | `/api/v1/extractions/document/{id}` | Get extracted properties with bounding boxes |
 | **Extractions**| `PATCH`| `/api/v1/extractions/{id}` | Update/correct an extracted field with audit history |
+| **ML Inference**| `POST`| `/api/v1/ml/evaluate` | Multi-model inference (Type, Risk, Isolation Anomaly) & Atlas logging |
+| **ML Telemetry**| `GET` | `/api/v1/ml/predictions` | Query historical ML prediction records from MongoDB Atlas |
 | **Reconcile** | `POST` | `/api/v1/verifications/match-set` | Trigger 3-way matching across a document set |
 | **Anomalies** | `GET` | `/api/v1/anomalies` | Query detected math errors, outliers, and duplicates |
 | **Anomalies** | `PATCH`| `/api/v1/anomalies/{id}/resolve` | Resolve or dismiss an anomaly with auditor remarks |
@@ -553,12 +673,8 @@ npm run lint
 
 ## 📸 Screenshots & UI Walkthrough
 
-> *Screenshots can be placed in `doc/screenshots/` or `Assests/`.*
-
 ### 1. Executive Analytics & Telemetry Dashboard
 *Comprehensive real-time overview displaying pipeline throughput, ingestion by document category, 4-tier risk distribution, and active anomalies.*
-
-![Dashboard Overview](Assests/docutrace_logo.png)
 
 ### 2. Document Studio & Spatial Coordinate Inspector
 *Side-by-side split screen rendering high-resolution documents with interactive OCR bounding boxes mapped directly to structured properties and confidence ratings.*
@@ -584,6 +700,7 @@ npm run lint
 ## 👥 Project Information & License
 
 - **Project**: DocuTrace
+- **Repository**: [https://github.com/atharva-thedev/DocuTrace](https://github.com/atharva-thedev/DocuTrace)
 - **Type**: AI-Powered Intelligent Business Document Analysis & Verification Platform
 - **Purpose**: Enterprise Document Intelligence, Auditing Automation & Compliance Platform
 - **License**: Distributed under the [MIT License](LICENSE).

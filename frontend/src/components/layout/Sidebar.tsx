@@ -13,6 +13,8 @@ import {
 import { useAuth } from '../../auth/useAuth';
 import { Badge } from '../ui/Badge';
 
+import { BrandLogo } from '../ui/BrandLogo';
+
 export const Sidebar: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -35,20 +37,10 @@ export const Sidebar: React.FC = () => {
     <aside className="w-64 bg-white dark:bg-[#0E131F] border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between shrink-0 h-screen select-none transition-colors z-20">
       {/* Brand Header */}
       <div>
-        <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 p-1.5 shadow-md shadow-blue-500/20 flex items-center justify-center">
-              <span className="font-mono text-sm font-bold text-white tracking-tighter">{`{...}`}</span>
-            </div>
-            <div>
-              <h1 className="text-base font-extrabold text-slate-900 dark:text-white font-display tracking-tight flex items-center gap-1.5">
-                DocuTrace
-              </h1>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
-                Document Intelligence
-              </p>
-            </div>
-          </div>
+        <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <NavLink to="/dashboard" className="flex items-center hover:opacity-90 transition-opacity">
+            <BrandLogo size="md" />
+          </NavLink>
         </div>
 
         {/* Navigation Section */}
