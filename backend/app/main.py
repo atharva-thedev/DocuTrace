@@ -132,6 +132,21 @@ async def generic_exception_handler(request: Request, exc: Exception):
     )
 
 # 4. Health & Liveness Endpoints
+@app.get("/", tags=["System Information"])
+async def root_info():
+    """Root endpoint providing platform information and documentation links."""
+    return {
+        "name": settings.PROJECT_NAME,
+        "description": settings.PROJECT_DESCRIPTION,
+        "version": settings.VERSION,
+        "environment": settings.ENVIRONMENT,
+        "docs_url": "/docs",
+        "redoc_url": "/redoc",
+        "openapi_url": f"{settings.API_V1_STR}/openapi.json",
+        "health_check": "/health",
+        "api_v1_prefix": settings.API_V1_STR,
+    }
+
 @app.get("/health", tags=["Health & Monitoring"])
 async def liveness_probe():
     """Liveness probe returning 200 if process is running."""

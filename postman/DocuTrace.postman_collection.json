@@ -1,0 +1,421 @@
+{
+  "info": {
+    "_postman_id": "docutrace-api-v1-collection",
+    "name": "DocuTrace API",
+    "description": "Comprehensive Postman collection for DocuTrace Intelligent Business Document Analysis & Verification Platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. System Health",
+      "item": [
+        {
+          "name": "Health Probe",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Readiness Probe",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ready",
+              "host": ["{{baseUrl}}"],
+              "path": ["ready"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Authentication",
+      "item": [
+        {
+          "name": "Login (Auto Sets Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.access_token) {",
+                  "    pm.environment.set('access_token', jsonData.data.access_token);",
+                  "    pm.environment.set('refresh_token', jsonData.data.refresh_token);",
+                  "    console.log('Access token saved to environment successfully.');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"auditor@docutrace.io\",\n  \"password\": \"DocuTrace@2026!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Register New Account",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newauditor@docutrace.io\",\n  \"password\": \"DocuTrace@2026!\",\n  \"full_name\": \"Jane Doe\",\n  \"role\": \"auditor\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Access Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.access_token) {",
+                  "    pm.environment.set('access_token', jsonData.data.access_token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "refresh"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Documents",
+      "item": [
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/documents?page=1&page_size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "documents"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Document (PDF / Image)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "document_type",
+                  "value": "invoice",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/documents/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "documents", "upload"]
+            }
+          }
+        },
+        {
+          "name": "Get Document Details & Spatial BBoxes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/documents/{{document_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "documents", "{{document_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Machine Learning & Telemetry",
+      "item": [
+        {
+          "name": "Evaluate Document with 3 ML Models",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_id\": \"DOC-4A2B9F8E1103\",\n  \"title\": \"Commercial Invoice Cloud Renewal\",\n  \"text_snippet\": \"Invoice for annual enterprise cloud infrastructure subscription Net 30 terms\",\n  \"issuer_name\": \"Acme Cloud Solutions Inc.\",\n  \"recipient_name\": \"Global Logistics Corp\",\n  \"recipient_email\": \"billing@globallogistics.com\",\n  \"sha256_hash\": \"8f9a2e3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f\",\n  \"blockchain_tx_id\": \"0x4a9b2c8f10d7e6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1\",\n  \"duration_hours\": 24.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ml/evaluate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "ml", "evaluate"]
+            }
+          }
+        },
+        {
+          "name": "Get ML Predictions History (MongoDB Atlas)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ml/predictions?limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "ml", "predictions"],
+              "query": [
+                { "key": "limit", "value": "50" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Extractions & Spatial Coordinates",
+      "item": [
+        {
+          "name": "Get Extracted Fields for Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/extractions/document/{{document_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "extractions", "document", "{{document_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. 3-Way Cross-Document Reconciliation",
+      "item": [
+        {
+          "name": "List Document Sets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/document-sets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "document-sets"]
+            }
+          }
+        },
+        {
+          "name": "Trigger 3-Way Match Verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_set_id\": \"{{document_set_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/verifications/match-set",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "verifications", "match-set"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Anomalies & Risk Scores",
+      "item": [
+        {
+          "name": "Query Detected Anomalies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/anomalies",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "anomalies"]
+            }
+          }
+        },
+        {
+          "name": "Get Explainable Risk Score",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/risk-scores/document/{{document_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "risk-scores", "document", "{{document_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Obligations & Action Engine (Tasks)",
+      "item": [
+        {
+          "name": "List Contract Obligations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/obligations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "obligations"]
+            }
+          }
+        },
+        {
+          "name": "Get Kanban Action Tasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tasks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tasks"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "9. Evidence Q&A Studio (RAG)",
+      "item": [
+        {
+          "name": "Ask Question with Spatial Evidence Citations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What are the payment terms and late penalty clauses?\",\n  \"document_id\": \"{{document_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/qa/query",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "qa", "query"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Executive Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Metrics & Telemetry",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/dashboard/metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "dashboard", "metrics"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
