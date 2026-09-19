@@ -32,7 +32,7 @@
 
 ## 📖 Table of Contents
 
-- [Executive Summary](#-executive-summary)
+- [About DocuTrace](#-about-docutrace)
 - [The Core Problem](#-the-core-problem)
 - [Key Value Proposition](#-key-value-proposition)
 - [Core Features & Capabilities](#-core-features--capabilities)
@@ -58,7 +58,7 @@
 
 ---
 
-## 🌟 Executive Summary
+## 📌 About DocuTrace
 
 **DocuTrace** is an enterprise-grade document intelligence, verification, and auditing platform engineered to bridge the gap between unstructured business documents and mission-critical enterprise workflows. Rather than treating documents as passive text files, DocuTrace ingests PDFs, scanned images, and commercial records, extracts structured properties, recalculates mathematical integrity, performs automated **3-way cross-document reconciliation** (Invoice ↔ Purchase Order ↔ Contract), detects anomalies using unsupervised machine learning and statistical models, runs multi-class document categorization, and generates auditable, coordinate-grounded action items.
 
@@ -549,6 +549,10 @@ The trained `.joblib` models are automatically saved to `ml/models/` and loaded 
 
 ## 🔐 Environment Variables
 
+<details>
+<summary><b>▶ Click to expand Environment Variables (.env template)</b></summary>
+<br/>
+
 Create a `.env` file in the `backend/` directory using the provided `.env.example` template:
 
 ```env
@@ -596,6 +600,8 @@ EMBEDDING_MODEL="text-embedding-004"
 LOG_LEVEL="INFO"
 SENTRY_DSN=""
 ```
+
+</details>
 
 ---
 

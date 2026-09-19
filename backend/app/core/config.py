@@ -43,8 +43,8 @@ class Settings(BaseSettings):
     MONGODB_URI: str = ""
 
     # JWT Authentication
-    JWT_ACCESS_SECRET: str = "docutrace_super_secure_access_secret_key_minimum_64_characters_long_for_security_compliance"
-    JWT_REFRESH_SECRET: str = "docutrace_super_secure_refresh_secret_key_minimum_64_characters_long_for_security_compliance"
+    JWT_ACCESS_SECRET: str = "4JNIrDfsXbqVPYICss4J7TqJhmNNaksW"
+    JWT_REFRESH_SECRET: str = "4JNIrDfsXbqVPYICss4J7TqJhmNNaksW"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
