@@ -1,6 +1,7 @@
 {
   "name": "docutrace-root",
   "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "npm --prefix frontend run dev",
